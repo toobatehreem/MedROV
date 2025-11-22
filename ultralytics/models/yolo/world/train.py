@@ -186,13 +186,6 @@ class WorldTrainer(DetectionTrainer):
                 return txt_map
         LOGGER.info(f"Caching text embeddings to '{cache_path}'")
         assert self.model is not None
-        # tokenizer = self.clip.get_tokenizer('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')
-        # text_token = tokenizer(texts, context_length = 77).to(batch["img"].device)
-        # txt_feats = self.text_model.encode_text(text_token).to(dtype=batch["img"].dtype)
-        # # txt_feats = self.model.get_text_pe(texts, batch, cache_clip_model=False)
-        # txt_map = dict(zip(texts, txt_feats.squeeze(0)))
-        # torch.save(txt_map, cache_path)
-        # return txt_map
         device = next(self.text_model.parameters()).device
         tokens = self.tokenizer(texts, context_length=77).to(device)
 
