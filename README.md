@@ -41,6 +41,9 @@ results = model.train(data="data.yaml", epochs=20, batch=64, optimizer='AdamW', 
 
 ### Testing
 
+The checkpoints for the trained MedROV model can be found here: 
+
+
 To evaluate the trained model, you can use the following code:
 
 ```python
