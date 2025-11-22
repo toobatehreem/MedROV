@@ -10,12 +10,17 @@ import torch.nn as nn
 from ultralytics.utils import checks
 from ultralytics.utils.torch_utils import smart_inference_mode
 
-try:
-    import clip
-except ImportError:
-    checks.check_requirements("git+https://github.com/ultralytics/CLIP.git")
-    import clip
+# try:
+#     import clip
+# except ImportError:
+#     checks.check_requirements("git+https://github.com/ultralytics/CLIP.git")
+#     import clip
 
+try:
+    import open_clip
+except ImportError:
+    pass
+clip = open_clip
 
 class TextModel(nn.Module):
     """
@@ -85,7 +90,8 @@ class CLIP(TextModel):
             >>> text_features = clip_model.encode_text(["a photo of a cat", "a photo of a dog"])
         """
         super().__init__()
-        self.model = clip.load(size, device=device)[0]
+        # self.model = clip.load(size, device=device)[0]
+        self.model = clip.create_model_from_pretrained('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224', device=device)[0]
         self.to(device)
         self.device = device
         self.eval()
@@ -105,7 +111,9 @@ class CLIP(TextModel):
             >>> tokens = model.tokenize("a photo of a cat")
             >>> print(tokens.shape)  # torch.Size([1, 77])
         """
-        return clip.tokenize(texts).to(self.device)
+        tokenizer = self.clip.get_tokenizer('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')
+        return tokenizer(texts, context_length = 77).to(self.device)
+        # return clip.tokenize(texts).to(self.device)
 
     @smart_inference_mode()
     def encode_text(self, texts: torch.Tensor, dtype: torch.dtype = torch.float32):
