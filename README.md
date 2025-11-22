@@ -1,6 +1,6 @@
 # MedROV
 
-Official PyTorch implementation for paper "**IHA-YOLO**: Inter-Head Attention for Real-time Cell Detection", accepted at ISBI 2025. [Paper Link](https://ieeexplore.ieee.org/document/10981067)
+Official PyTorch implementation for paper "**MedROV**: Towards Real-Time Open-Vocabulary Detection Across Diverse Medical Imaging Modalities", accepted at WACV 2026. [Paper Link](http://)
 
 ## Abstract
 
