@@ -43,6 +43,8 @@ results = model.train(data="data.yaml", epochs=20, batch=64, optimizer='AdamW', 
 
 The checkpoints for the trained MedROV model can be found here: [MedROV](https://huggingface.co/toobatehreemsheikh/MedROV)
 
+The Omnis-600K dataset can be found here: [Omnis-600K](https://huggingface.co/datasets/toobatehreemsheikh/Omnis-600K)
+
 
 To evaluate the trained model, you can use the following code:
 
