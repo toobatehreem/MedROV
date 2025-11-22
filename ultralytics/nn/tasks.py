@@ -904,7 +904,6 @@ class WorldModel(DetectionModel):
         device = next(model.parameters()).device
         tokenizer = open_clip.get_tokenizer('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')
         text_token = tokenizer(text, context_length=77).to(device)
-        print("text_token: ", text_token)
         # text_token = model.tokenize(text)
         txt_feats = [model.encode_text(token).detach() for token in text_token.split(batch)]
         txt_feats = txt_feats[0] if len(txt_feats) == 1 else torch.cat(txt_feats, dim=0)
