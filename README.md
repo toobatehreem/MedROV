@@ -1,6 +1,6 @@
 # MedROV
 
-Official PyTorch implementation for paper "**MedROV**: Towards Real-Time Open-Vocabulary Detection Across Diverse Medical Imaging Modalities", accepted at WACV 2026. [Paper Link](http://)
+Official PyTorch implementation for paper "**MedROV**: Towards Real-Time Open-Vocabulary Detection Across Diverse Medical Imaging Modalities", accepted at WACV 2026. [Paper Link](https://arxiv.org/abs/2511.20650)
 
 ## Abstract
 
