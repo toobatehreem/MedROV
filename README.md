@@ -35,7 +35,7 @@ from ultralytics import YOLOWorld
 model = YOLOWorld("yolov8l-worldv2.pt")
 
 # Start training
-results = model.train(data="data.yaml", epochs=20, batch=64, optimizer='AdamW', lr0=0.0002, weight_decay=0.05, device=(0,1,2,3))
+results = model.train(data="data.yaml", epochs=20, batch=128, optimizer='AdamW', lr0=0.0002, weight_decay=0.05, device=(0,1,2,3))
 
 ```
 
