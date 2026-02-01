@@ -5,10 +5,10 @@ from PIL import Image
 import nibabel as nib
 
 # Define paths
-image_folder = '/l/users/tooba.sheikh/Datasets/RawData_AbdomenBTCV/RawData/test/images'
-label_folder = '/l/users/tooba.sheikh/Datasets/RawData_AbdomenBTCV/RawData/test/labels'
-output_image_folder = '/l/users/tooba.sheikh/Datasets/BioMedParse/BTCV/images/'
-output_json_file = '/l/users/tooba.sheikh/Datasets/BioMedParse/BTCV/annotations.json'
+image_folder = '/l/users/tooba.sheikh/Datasets/CervixRawData/RawData/train/images'
+label_folder = '/l/users/tooba.sheikh/Datasets/CervixRawData/RawData/train/labels'
+output_image_folder = '/l/users/tooba.sheikh/Datasets/JSONDatasets_Final/Training_Datasets/Training/Cervix/images/'
+output_json_file = '/l/users/tooba.sheikh/Datasets/JSONDatasets_Final/Training_Datasets/Training/Cervix/annotations.json'
 
 # Create output directory if it doesn't exist
 os.makedirs(output_image_folder, exist_ok=True)
@@ -16,19 +16,10 @@ os.makedirs(output_image_folder, exist_ok=True)
 # Mapping from label values to class names
 label_mapping = {
     0: "background",
-    1: "spleen",
-    2: "right kidney",
-    3: "left kidney",
-    4: "gallbladder",
-    5: "esophagus",
-    6: "liver",
-    7: "stomach",
-    8: "aorta",
-    9: "inferior vena cava",
-    10: "portal vein and splenic vein",
-    11: "pancreas",
-    12: "right adrenal gland",
-    13: "left adrenal gland"
+    1: "urinary bladder",
+    2: "uterus",
+    3: "rectum",
+    4: "small bowel/small intestine"
 }
 
 # Initialize COCO annotation structure
@@ -48,7 +39,7 @@ label_files = sorted([f for f in os.listdir(label_folder) if f.endswith('.nii.gz
 # Iterate over image files
 for image_file in image_files:
     # Find the corresponding label file
-    label_file = image_file.replace('img', 'label') 
+    label_file = image_file.replace('Image', 'Mask')  # Replace 'img' with 'label' in the filename
     label_path = os.path.join(label_folder, label_file)
 
     # If label file doesn't exist, skip this image
@@ -75,12 +66,11 @@ for image_file in image_files:
             continue
 
         # Save the original slice as a .png image
-        image_filename = f'btcv_{image_id:08d}.png'
+        image_filename = f'cervix_{image_id:08d}.png'
         output_image_path = os.path.join(output_image_folder, image_filename)
 
         # Normalize the original image slice and convert to uint8 for saving as an image
-        # original_image_slice = np.clip(original_image_slice, -500, 1000)
-        original_image_slice = np.clip(original_image_slice, -150, 250)
+        original_image_slice = np.clip(original_image_slice, -500, 1000)
         normalized_image = ((original_image_slice - np.min(original_image_slice)) / 
                             (np.max(original_image_slice) - np.min(original_image_slice)) * 255).astype(np.uint8)
         image = Image.fromarray(normalized_image)
